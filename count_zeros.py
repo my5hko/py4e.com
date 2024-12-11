@@ -1,0 +1,5 @@
+text = "ooooooooooooooooooooooooooo0o0o0o0ooooooooooooooooooooooo oooooooooooooooooooooooooooo0o0o0o0oooooooooooooneoooooooo oooooooooooooooooooooooooooo0ooo0oooooooooooooooooo0neoooo o0oooooooooooooooooooooooooooo0oo0oooooooooooooooooooooooo oooooooooooo00000ooooooooooooooooooooooooooooooooooooooooo"
+
+zero_count = text.count("0")
+
+print("Number of zeros:", zero_count)

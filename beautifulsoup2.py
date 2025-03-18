@@ -19,23 +19,12 @@ for i in range (count + 1):
     html = urllib.request.urlopen(url, context=ctx).read()
     soup = BeautifulSoup(html, 'html.parser')
     tags = soup('a')
-    url = str(tags[position -1].get('href', None))
+    url = str(tags[position -1].get('href', None)) # type: ignore
     if url is None:
         print("Error: URL not found")
         break
     if i != count:
-        names.append(tags[position - 1].contents[0])
+        names.append(tags[position - 1].contents[0]) # type: ignore
 
 ic(names)
 print(names[-1])
-
-# ic(soup)
-
-
-# ic(tags)
-
-# for tag in tags:
-#     # print(tag.get('href', None)) # type: ignore
-#     print('Contents:', tag.contents[0])
-#     print('Attr:', tag.attrs) # type: ignore
-#     sum += int(tag.contents[0]) # type: ignore

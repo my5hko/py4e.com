@@ -20,7 +20,7 @@ ic(tags)
 sum = 0
 for tag in tags:
     # print(tag.get('href', None)) # type: ignore
-    print('Contents:', tag.contents[0])
+    print('Contents:', tag.contents[0]) # type: ignore
     # print('Attr:', tag.attrs) # type: ignore
     # print(tag.get('class', None))
     sum += int(tag.contents[0]) # type: ignore

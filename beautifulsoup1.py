@@ -12,7 +12,7 @@ url = input('Enter URL:')
 html = urllib.request.urlopen(url, context=ctx).read()
 soup = BeautifulSoup(html, 'html.parser')
 
-ic(soup)
+# ic(soup)
 
 tags = soup('span')
 ic(tags)

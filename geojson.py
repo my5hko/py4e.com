@@ -1,6 +1,7 @@
 import urllib.request, urllib.parse, urllib.error
 import json
 from icecream import ic
+import os
 
 import ssl
 
@@ -12,9 +13,9 @@ ctx.verify_mode = ssl.CERT_NONE
 # serviceurl = 'http://py4e-data.dr-chuck.net/json?'
 serviceurl = 'https://maps.googleapis.com/maps/api/geocode/json?'
 # serviceurl = 'http://py4e-data.dr-chuck.net/opengeo?'
-with open('google_maps_api.txt', "r") as file:
-    key = file.read().strip()
-print(key)
+
+
+api_key = os.getenv('GOOGLE_MAPS_API_KEY')
 
 # key = open().read().strip()
 # print(key)
@@ -23,7 +24,7 @@ while True:
     address = input('Enter location: ')
     if len(address) < 1 : break
 
-    url = serviceurl + urllib.parse.urlencode({'address': address, 'key' : key})
+    url = serviceurl + urllib.parse.urlencode({'address': address, 'key' : api_key})
     print('Retrieving', url)
     uh = urllib.request.urlopen(url, context=ctx)
     data = uh.read().decode()

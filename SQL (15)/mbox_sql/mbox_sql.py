@@ -39,3 +39,7 @@ orgs = cur.fetchall()
 d_width = max(len(orgs[0]) for org in orgs) + 5
 for org in orgs:
     print(f"{org[0]:<{d_width}} {org[1]}")
+
+    cur.execute('SELECT count FROM Counts WHERE org = ? ', ("nnn", ))
+    row = cur.fetchone()
+    print(row)

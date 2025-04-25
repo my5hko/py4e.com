@@ -1,6 +1,10 @@
 import urllib.request, urllib.parse
 import json, http
-from icecream import ic
+try:
+    from icecream import ic
+except ImportError:
+    print("icecream module is not installed. Please install it using 'pip install icecream'.")
+    ic = lambda *args: None  # Define a no-op function as a fallback
 
 import ssl
 

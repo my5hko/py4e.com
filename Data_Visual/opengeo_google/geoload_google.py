@@ -6,8 +6,10 @@ import time
 import ssl
 import sys
 
-# https://py4e-data.dr-chuck.net/opengeo?q=Ann+Arbor%2C+MI
-serviceurl = 'https://py4e-data.dr-chuck.net/opengeo?'
+
+serviceurl = 'https://maps.googleapis.com/maps/api/geocode/json?' #with Google Maps API
+with open('D:/Projects/google_maps_api.txt', "r") as file:
+    key = file.read().strip()
 
 
 # Additional detail for urllib
@@ -25,12 +27,9 @@ ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 fh = open("where.data")
-count = 0
+# count = 0
 nofound = 0
 for line in fh:
-    if count > 100 :
-        print('Retrieved 100 locations, restart to retrieve more')
-        break
 
     address = line.strip()
     print('')
@@ -44,16 +43,16 @@ for line in fh:
     except:
         pass
 
-    parms = dict()
-    parms['q'] = address
+    # parms = dict()
+    # parms['q'] = address
 
-    url = serviceurl + urllib.parse.urlencode(parms)
+    # url = serviceurl + urllib.parse.urlencode(parms)
+    url = serviceurl + urllib.parse.urlencode({'address': address, 'key' : key})
 
     print('Retrieving', url)
     uh = urllib.request.urlopen(url, context=ctx)
     data = uh.read().decode()
     print('Retrieved', len(data), 'characters', data[:20].replace('\n', ' '))
-    count = count + 1
 
     try:
         js = json.loads(data)
@@ -61,12 +60,12 @@ for line in fh:
         print(data)  # We print in case unicode causes an error
         continue
 
-    if not js or 'features' not in js:
+    if not js or 'results' not in js:
         print('==== Download error ===')
         print(data)
         break
 
-    if len(js['features']) == 0:
+    if len(js['results']) == 0:
         print('==== Object not found ====')
         nofound = nofound + 1
 
@@ -76,9 +75,9 @@ for line in fh:
 
     conn.commit()
 
-    if count % 10 == 0 :
-        print('Pausing for a bit...')
-        time.sleep(5)
+    # if count % 10 == 0 :
+    #     print('Pausing for a bit...')
+    #     time.sleep(5)
 
 if nofound > 0:
     print('Number of features for which the location could not be found:', nofound)

@@ -34,7 +34,7 @@ while True:
         js = json.loads(data)
     except:
         js = None
-    # ic(js)
+    ic(js)
     if not js or 'status' not in js or js['status'] != 'OK':
         print('==== Failure To Retrieve ====')
         print(data)
@@ -44,6 +44,15 @@ while True:
     lng = js['results'][0]['geometry']['location']['lng'] 
     full_address = js['results'][0]['formatted_address']
     ic(full_address, lat, lng)
+    ic(len(js['results']))
+    id = [i for i in range(0, len(js['results'])) if js['results'][i]['address_components'][0]['types'][0] == 'locality']
+    ic(id)
+    ic(js['results'][0]['address_components'][0]['types'][0])
+    lat = js['results'][id[0]]['geometry']['location']['lat']
+    lng = js['results'][id[0]]['geometry']['location']['lng'] 
+    full_address = js['results'][id[0]]['formatted_address']
+    ic(full_address, lat, lng)
+
 
 
 

@@ -147,7 +147,7 @@ while True:
         continue
 
     email = None
-    x = re.findall('\nFrom: .* <(\S+@\S+)>\n', hdr)
+    x = re.findall(r'\nFrom: .* <(\S+@\S+)>\n', hdr)
     if len(x) == 1 :
         email = x[0];
         email = email.strip().lower()
